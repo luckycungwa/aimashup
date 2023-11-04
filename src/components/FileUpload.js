@@ -45,7 +45,7 @@ const FileUpload = () => {
               {/* DROP FILE SECTION */}
               <div className="tipContainer">
               <div>
-              <img className="uploadIcon" src="https://thenounproject.com/icon/upload-6255402/" alt="Icon" />
+              <img className="uploadIcon" src="noun-upload.svg" alt="Icon" />
               </div>
                 <p className="tipText">
                   Drag 'n' drop some files here, or click to select files

@@ -66,9 +66,9 @@ button {
 
   background-color: #ffffff;
   padding: 10px;
-  height: 600px;
-  width: 800px;
-  border-radius: 4%;
+  height: 300px;
+  width: 600px;
+  border-radius: 25px;
   border: #323232e9 8px solid;
   margin-top: 16px;
   margin-bottom: 24px;
@@ -85,8 +85,8 @@ button {
   /* color: white; */
 }
 .uploadIcon {
-  height: 100px;
-  width: 100px;
+  height: 200px;
+  width: 200px;
 }
 .fileDetails {
 
