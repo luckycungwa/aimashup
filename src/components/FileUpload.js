@@ -36,7 +36,10 @@ const FileUpload = () => {
   return (
     <>
     <div className="uploadSection">
-      <div>FileUpload</div>
+      <div>
+      <p className="title3">Upload your CV</p>
+      
+      </div>
       <div className="tipContainer">
       <Dropzone onDrop={onDrop}>
           {({ getRootProps, getInputProps }) => (
@@ -58,8 +61,8 @@ const FileUpload = () => {
 
       {files && (
         <div>
-          <h3>File Details:</h3>
-          <p>Name: {files.name}</p> <p>Size: {files.size}</p>
+          <h3 className="title4">File Details:</h3>
+          <p className="title5"> {files.name}</p> <p className="lightText">Size: {files.size}</p>
         </div>
       )}
 

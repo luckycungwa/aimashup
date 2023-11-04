@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div className='container'>
       {/* Add your component content here */}
-      <p>My Home page</p>
+      {/* <p>My Home page</p> */}
       <FileUpload /> {/* Rendering the FileUpload component */}
       <Button label="Upload" /> {/* Rendering the Button component with a label prop */}
     </div>
