@@ -54,7 +54,7 @@ const FileUpload = () => {
           canvas.width = image.width;
           canvas.height = image.height;
           context.drawImage(image, 0, 0);
-          const imageData = canvas.toDataURL("image/jpeg"); // You can change the format to PNG if needed
+          const imageData = canvas.toDataURL("image/jpeg"); // convert to image inrder to be readable 
 
           formData.append("image", imageData);
 

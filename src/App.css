@@ -86,8 +86,6 @@ button {
   height: 200px;
   width: 200px;
 }
-.fileDetails {
-}
 .uploadSection {
   display: flex;
   flex-direction: column;
@@ -127,3 +125,203 @@ button {
   margin: 0;
   padding: 0;
 }
+
+.usercard {
+  background-color: #c1ffdd;
+  border-radius: 38px;
+  height: 366px;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 550px;
+}
+
+.top {
+  align-items: flex-start;
+  display: inline-flex;
+  gap: 304px;
+  position: relative;
+}
+
+.top .ellipse {
+  background-color: #ff7af9;
+  border-radius: 58.5px;
+  height: 117px;
+  position: relative;
+  width: 117px;
+}
+
+.top .icon-more-horiz {
+  height: 49.53px;
+  position: relative;
+  width: 49.53px;
+}
+
+.content {
+  align-items: flex-start;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+}
+
+.content .text-wrapper {
+  color: #000000;
+  font-family: "Inter-Bold", Helvetica;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 1.68px;
+  line-height: normal;
+  margin-top: -1px;
+  position: relative;
+  width: 470px;
+}
+
+.content .div {
+  color: #000000;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.96px;
+  line-height: normal;
+  position: relative;
+  width: 279.69px;
+}
+
+.snack {
+  align-items: center;
+  border-radius: 50px;
+  display: inline-flex;
+  gap: 10px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 4px 18px;
+  position: relative;
+}
+
+.snack .text-wrapper {
+  font-family: "Inter-Bold", Helvetica;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.72px;
+  line-height: normal;
+  margin-top: -2px;
+  position: relative;
+  text-align: center;
+  width: fit-content;
+}
+
+.snack.hover {
+  background-color: #1c1c1c;
+}
+
+.snack.default {
+  border: 2px solid;
+  border-color: #000000;
+}
+
+.snack.hover .text-wrapper {
+  color: #ffffff;
+}
+
+.snack.default .text-wrapper {
+  color: #000000;
+}
+
+/* overall card design parent */
+.frame {
+  align-items: flex-start;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 337px;
+  position: relative;
+}
+
+.frame .rectangle {
+  background-color: #c1ffdd;
+  border-radius: 38px;
+  height: 366px;
+  margin-bottom: -29px;
+  position: relative;
+  width: 550px;
+}
+
+.frame .div {
+  align-items: flex-start;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 41px;
+  left: 39px;
+  position: absolute;
+  top: 38px;
+}
+
+.frame .top {
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 304px;
+  position: relative;
+}
+
+.frame .ellipse {
+  height: 117px;
+  object-fit: cover;
+  position: relative;
+  width: 117px;
+}
+
+.frame .icon-more-horiz {
+  height: 49.53px;
+  position: relative;
+  width: 49.53px;
+}
+
+.frame .content {
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+}
+
+.frame .text-wrapper {
+  color: #000000;
+  font-family: "Inter-Bold", Helvetica;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 1.68px;
+  line-height: normal;
+  margin-top: -1px;
+  position: relative;
+  width: 470px;
+}
+
+.frame .text-wrapper-2 {
+  color: #000000;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.96px;
+  line-height: normal;
+  position: relative;
+  width: 279.69px;
+}
+
+.frame .skill-set {
+  align-items: flex-end;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 6px;
+  overflow: hidden;
+  position: relative;
+  width: 480px;
+}
+
+.frame .snack-instance {
+  flex: 0 0 auto !important;
+  justify-content: unset !important;
+}
+
