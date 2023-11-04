@@ -1,0 +1,72 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const apiKey = 'YOUR_AZURE_API_KEY';
+const endpoint = 'YOUR_AZURE_COMPUTER_VISION_ENDPOINT';
+
+const App = () => {
+  const [qualificationResult, setQualificationResult] = useState(null);
+
+  const evaluateCV = async (cvFile) => {
+    const url = `${endpoint}/vision/v3.1/ocr`;
+
+    const formData = new FormData();
+    formData.append('image', cvFile);
+
+    try {
+      const response = await axios.post(url, formData, {
+        headers: {
+          'Ocp-Apim-Subscription-Key': apiKey,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      const cvText = response.data.regions[0].lines.map((line) =>
+        line.words.map((word) => word.text).join(' ')
+      );
+
+      // Implement your qualification criteria and evaluation logic here.
+      const isQualified = yourQualificationLogic(cvText);
+
+      setQualificationResult(isQualified);
+    } catch (error) {
+      console.error('CV analysis error:', error);
+    }
+  };
+
+  const yourQualificationLogic = (cvText) => {
+    // Implement your qualification criteria here. This is a placeholder.
+    // You can analyze the text and return true or false based on your criteria.
+    return true;
+  };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    const cvFile = event.target.cvInput.files[0];
+
+    if (cvFile) {
+      await evaluateCV(cvFile);
+    }
+  };
+
+  return (
+    <div>
+      <h1>CV Qualification Evaluation</h1>
+      <form onSubmit={handleFormSubmit}>
+        <input type="file" name="cvInput" accept=".pdf,.jpg,.jpeg,.png" />
+        <button type="submit">Evaluate CV</button>
+      </form>
+      {qualificationResult !== null && (
+        <div>
+          {qualificationResult ? (
+            <p>Candidate is qualified for the job.</p>
+          ) : (
+            <p>Candidate is not qualified for the job.</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default App;
