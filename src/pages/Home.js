@@ -9,7 +9,7 @@ const Home = () => {
       {/* Add your component content here */}
       {/* <p>My Home page</p> */}
       <FileUpload /> {/* Rendering the FileUpload component */}
-      <Button label="Upload" /> {/* Rendering the Button component with a label prop */}
+      <Button label="Upload" onclick={() => console.log('clicked')} /> {/* Rendering the Button component with a label prop */}
     </div>
   );
 };
