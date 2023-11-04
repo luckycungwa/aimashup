@@ -48,3 +48,34 @@ button {
   align-self: center;
   max-width: fit-content;
 }
+.tipText {
+  cursor: pointer;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  text-align: center;
+  text-overflow: ellipsis;
+  text-wrap: wrap;
+}
+.tipContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background-color: azure;
+  padding: 10px;
+  height: 200px;
+  width: 200px;
+  border-radius: 100%;
+}
+.container {
+  /* background-color: #282c34; */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* font-size: calc(10px + 2vmin); */
+  /* color: white; */
+}

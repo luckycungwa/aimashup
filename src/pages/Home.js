@@ -5,7 +5,7 @@ import FileUpload from '../components/FileUpload'; // Importing the FileUpload c
 const Home = () => {
   
   return (
-    <div>
+    <div className='container'>
       {/* Add your component content here */}
       <p>My Home page</p>
       <FileUpload /> {/* Rendering the FileUpload component */}
