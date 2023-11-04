@@ -14,32 +14,55 @@ const FileUpload = () => {
     formData.append("image", file);
 
     // Replace with your Azure Computer Vision API endpoint and API key
-    const endpoint = "https://aimashupvision.cognitiveservices.azure.com/";
-    const apiKey = "637c6c1fb26a4be8a9128016d7b93f2f";
+    const endpoint = "https://aimesh.cognitiveservices.azure.com/vision/v3.0/ocr"; // Include /vision/v3.0/ocr for OCR
+    const apiKey = "34c005ae79904a52954d09445643780b"; // Your API key
 
-    try {
-      const response = await axios.post(`${endpoint}/read/analyze`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "Ocp-Apim-Subscription-Key": apiKey,
-        },
-      });
+    // Convert the PDF to an image format
+    const image = new Image();
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      image.src = e.target.result;
+      image.onload = async function () {
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+        canvas.width = image.width;
+        canvas.height = image.height;
+        context.drawImage(image, 0, 0);
+        const imageData = canvas.toDataURL("image/jpeg"); // You can change the format to PNG if needed
 
-      setExtractedText(response.data.text);
-    } catch (error) {
-      console.error("Error:", error);
-    }
+        formData.append("image", imageData);
+
+        try {
+          const response = await axios.post(endpoint, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              "Ocp-Apim-Subscription-Key": apiKey,
+            },
+          });
+
+          // Extracted text from the API response
+          setExtractedText(response.data.regions[0].lines.map((line) => line.words.map((word) => word.text).join(" ")).join("\n"));
+        } catch (error) {
+          // Handle errors
+          console.error("Error:", error);
+        }
+      };
+    };
+    reader.readAsDataURL(file);
   };
 
   return (
     <>
       <div className="uploadSection">
-        <div>FileUpload</div>
+        <div>
+          <p className="title3">Upload your CV</p>
+        </div>
         <div className="tipContainer">
           <Dropzone onDrop={onDrop}>
             {({ getRootProps, getInputProps }) => (
               <div {...getRootProps()}>
                 <input {...getInputProps()} />
+                {/* DROP FILE SECTION */}
                 <div className="tipContainer">
                   <div>
                     <img className="uploadIcon" src="noun-upload.svg" alt="Icon" />
@@ -55,9 +78,8 @@ const FileUpload = () => {
 
         {files && (
           <div>
-            <h3>File Details:</h3>
-            <p>Name: {files.name}</p>
-            <p>Size: {files.size ? `${(files.size / 1024 / 1024).toFixed(2)} MB` : ''}</p>
+            <h3 className="title4">File Details:</h3>
+            <p className="title5"> {files.name}</p> <p className="lightText">Size: {files.size}</p>
           </div>
         )}
 
