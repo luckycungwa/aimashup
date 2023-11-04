@@ -6,7 +6,7 @@ import Button from './components/Button';
 function App() {
   return (
     <div className="App">
-      <Button/>
+      <Button label="Upload" onClick={() => console.log('clicked')}/>
     </div>
   );
 }
