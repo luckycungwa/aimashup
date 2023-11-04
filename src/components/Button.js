@@ -1,10 +1,16 @@
 import React from 'react';
+import FileUpload from './FileUpload'; // Adjust the path to match the actual location of FileUpload.js
+
 
 function Button(props) {
   return (
-    <button onClick={props.onClick} className='Btn'>
-      {props.label}
-    </button>
+    <div>
+      
+      <button onClick={props.onClick} className='Btn'>
+        {props.label}
+      </button>
+
+    </div>
   );
 }
 

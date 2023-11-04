@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from '../components/Button';
-import FileUpload from '../components/fileUpload';
+import Button from '../components/Button'; // Importing the Button component
+import FileUpload from '../components/FileUpload'; // Importing the FileUpload component
 
 const Home = () => {
   
@@ -8,8 +8,8 @@ const Home = () => {
     <div>
       {/* Add your component content here */}
       <p>My Home page</p>
-      <FileUpload />
-      <Button label="Upload" />  
+      <FileUpload /> {/* Rendering the FileUpload component */}
+      <Button label="Upload" /> {/* Rendering the Button component with a label prop */}
     </div>
   );
 };
