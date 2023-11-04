@@ -14,8 +14,8 @@ const FileUpload = () => {
     formData.append("image", file);
 
     // Replace with your Azure Computer Vision API endpoint and API key
-    const endpoint = "YOUR_AZURE_COMPUTER_VISION_ENDPOINT";
-    const apiKey = "YOUR_AZURE_COMPUTER_VISION_API_KEY";
+    const endpoint = "https://aimashupvision.cognitiveservices.azure.com/";         //endpoint key from th azure sevrice
+    const apiKey = "3c85d2abaa2e4eaf8d2453443def9f79";                                //API key from azure
 
     try {
       const response = await axios.post(`${endpoint}/read/analyze`, formData, {
@@ -35,13 +35,22 @@ const FileUpload = () => {
 
   return (
     <>
+    <div className="uploadSection">
       <div>FileUpload</div>
       <div className="tipContainer">
-        <Dropzone onDrop={onDrop}>
+      <Dropzone onDrop={onDrop}>
           {({ getRootProps, getInputProps }) => (
             <div {...getRootProps()}>
               <input {...getInputProps()} />
-              <p className="tipText">Drag 'n' drop some files here, or click to select files</p>
+              {/* DROP FILE SECTION */}
+              <div className="tipContainer">
+              <div>
+              <img className="uploadIcon" src="https://thenounproject.com/icon/upload-6255402/" alt="Icon" />
+              </div>
+                <p className="tipText">
+                  Drag 'n' drop some files here, or click to select files
+                </p>
+              </div>
             </div>
           )}
         </Dropzone>
@@ -60,6 +69,7 @@ const FileUpload = () => {
           <p>{extractedText}</p>
         </div>
       )}
+      </div>
     </>
   );
 };
