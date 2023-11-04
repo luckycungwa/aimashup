@@ -6,47 +6,58 @@ const FileUpload = () => {
   const [files, setFiles] = useState("");
   const [extractedText, setExtractedText] = useState("");
 
-  const onDrop = (acceptedFiles) => {
+  const onDrop = async (acceptedFiles) => {
     const file = acceptedFiles[0];
     setFiles(file);
 
     const formData = new FormData();
     formData.append("image", file);
-    axios
-      .post("http://localhost:3000/extractText", formData, {
+
+    // Replace with your Azure Computer Vision API endpoint and API key
+    const endpoint = "YOUR_AZURE_COMPUTER_VISION_ENDPOINT";
+    const apiKey = "YOUR_AZURE_COMPUTER_VISION_API_KEY";
+
+    try {
+      const response = await axios.post(`${endpoint}/read/analyze`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          "Ocp-Apim-Subscription-Key": apiKey,
         },
-      })
-      .then((res) => {
-        // extract text from the uploaded file
-        setExtractedText(res.data.text);
-      })
-      .catch((err) => {
-        // handle error
-        console.log(err);
-        console.log("Error:", err);
       });
+
+      // Extracted text from the API response
+      setExtractedText(response.data.text);
+    } catch (error) {
+      // Handle errors
+      console.error("Error:", error);
+    }
   };
 
   return (
     <>
-      <div>fileUpload</div>
+      <div>FileUpload</div>
       <div className="tipContainer">
-         <Dropzone onDrop={onDrop}>
-        {({ getRootProps, getInputProps }) => (
-          <div {...getRootProps()}>
-            <input {...getInputProps()} />
-            <p className="tipText">Drag 'n' drop some files here, or click to select files</p>
-          </div>
-        )}
-      </Dropzone>
+        <Dropzone onDrop={onDrop}>
+          {({ getRootProps, getInputProps }) => (
+            <div {...getRootProps()}>
+              <input {...getInputProps()} />
+              <p className="tipText">Drag 'n' drop some files here, or click to select files</p>
+            </div>
+          )}
+        </Dropzone>
       </div>
-     
+
       {files && (
         <div>
           <h3>File Details:</h3>
           <p>Name: {files.name}</p> <p>Size: {files.size}</p>
+        </div>
+      )}
+
+      {extractedText && (
+        <div>
+          <h3>Extracted Text:</h3>
+          <p>{extractedText}</p>
         </div>
       )}
     </>
