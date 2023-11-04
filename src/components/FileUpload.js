@@ -15,7 +15,7 @@ const FileUpload = () => {
 
     // Replace with your Azure Computer Vision API endpoint and API key
     const endpoint = "https://aimashupvision.cognitiveservices.azure.com";
-    const apiKey = "3c85d2abaa2e4eaf8d2453443def9f79";
+    const apiKey = "637c6c1fb26a4be8a9128016d7b93f2f";
 
     try {
       const response = await axios.post(`${endpoint}/read/analyze`, formData, {
