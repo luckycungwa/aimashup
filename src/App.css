@@ -49,7 +49,7 @@ button {
   max-width: fit-content;
 }
 .tipText {
-  cursor: pointer;
+ 
   align-items: center;
   align-content: center;
   align-self: center;
@@ -58,6 +58,7 @@ button {
   text-wrap: wrap;
 }
 .tipContainer {
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -78,4 +79,11 @@ button {
   justify-content: center;
   /* font-size: calc(10px + 2vmin); */
   /* color: white; */
+}
+.uploadIcon {
+  height: 100px;
+  width: 100px;
+}
+.fileDetails {
+
 }
