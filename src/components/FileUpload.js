@@ -14,7 +14,7 @@ const FileUpload = () => {
     formData.append("image", file);
 
     // Replace with your Azure Computer Vision API endpoint and API key
-    const endpoint = "https://aimashupvision.cognitiveservices.azure.com";
+    const endpoint = "https://aimashupvision.cognitiveservices.azure.com/";
     const apiKey = "637c6c1fb26a4be8a9128016d7b93f2f";
 
     try {
