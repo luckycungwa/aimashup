@@ -80,7 +80,7 @@ const FileUpload = () => {
           }
         };
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(file);     //read data from the file
     } catch (error) {
       console.error("Error:", error);
     }
