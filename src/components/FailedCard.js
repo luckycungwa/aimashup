@@ -1,7 +1,7 @@
 import React from "react";
 import "./failed.css";
 
-const FailedCard = () => {
+const FailedCard = ({isSuitable}) => {
   return (
     <div>
       <div class="card">
@@ -9,7 +9,7 @@ const FailedCard = () => {
           <span class="title">_</span>
           <span class="price">Not Suitable</span>
         </div>
-        <p class="desc">Candidate does not meet the following criteria</p>
+        <p class="desc">Candidate: {isSuitable ? "Suitable" : "Not Suitable"}</p>
         <ul class="lists">
           <li class="list">
             <svg
@@ -23,7 +23,7 @@ const FailedCard = () => {
                 clip-rule="evenodd"
               ></path>
             </svg>
-            <span>Aenean quis</span>
+            <span>Python</span>
           </li>
           <li class="list">
             <svg
@@ -37,7 +37,7 @@ const FailedCard = () => {
                 clip-rule="evenodd"
               ></path>
             </svg>
-            <span>Morbi semper</span>
+            <span>AI Microsoft Azure</span>
           </li>
           <li class="list">
             <svg
@@ -51,11 +51,11 @@ const FailedCard = () => {
                 clip-rule="evenodd"
               ></path>
             </svg>
-            <span>Tristique enim nec</span>
+            <span>Networking</span>
           </li>
         </ul>
         <button type="button" class="action">
-          Get Started
+          View More
         </button>
       </div>
     </div>

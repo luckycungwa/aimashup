@@ -4,19 +4,24 @@ import Dropzone from "react-dropzone";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { db, app, storage } from "../services/firebaseService";
+<<<<<<< HEAD
 import Dashboard from "./Dashboard"; // Import the Dashboard component
+=======
+import Dashboard from "../pages/Dashboard";
+>>>>>>> a990c94ecf57914a91c3b2ab767190761bc8447b
 
 const FileUpload = () => {
   const [files, setFiles] = useState(null);
   const [extractedText, setExtractedText] = useState("");
   const [isSuitable, setIsSuitable] = useState(false);
+<<<<<<< HEAD
 
+=======
+>>>>>>> a990c94ecf57914a91c3b2ab767190761bc8447b
 
   const onDrop = async (acceptedFiles) => {
     const file = acceptedFiles[0];
     setFiles(file);
-
-   
 
     // Create a reference to a location in Firebase Storage
     const storageRef = ref(storage, "uploads/" + file.name);
@@ -42,7 +47,8 @@ const FileUpload = () => {
       formData.append("image", file);
 
       // Replace with your Azure Computer Vision API endpoint and API key
-      const endpoint = "https://aimesh.cognitiveservices.azure.com/vision/v3.0/ocr"; // Include /vision/v3.0/ocr for OCR
+      const endpoint =
+        "https://aimesh.cognitiveservices.azure.com/vision/v3.0/ocr"; // Include /vision/v3.0/ocr for OCR
       const apiKey = "34c005ae79904a52954d09445643780b"; // Your API key
 
       // Convert the PDF to an image format
@@ -56,7 +62,7 @@ const FileUpload = () => {
           canvas.width = image.width;
           canvas.height = image.height;
           context.drawImage(image, 0, 0);
-          const imageData = canvas.toDataURL("image/jpeg"); // convert to image inrder to be readable 
+          const imageData = canvas.toDataURL("image/jpeg"); // convert to image inrder to be readable
 
           formData.append("image", imageData);
 
@@ -71,28 +77,38 @@ const FileUpload = () => {
             // Extracted text from the API response
             setExtractedText(
               response.data.regions[0].lines
-                .map((line) =>
-                  line.words.map((word) => word.text).join(" ")
-                )
+                .map((line) => line.words.map((word) => word.text).join(" "))
                 .join("\n")
             );
+<<<<<<< HEAD
             const isSuitableForPosition = evaluateSuitability(extractedText);
 
             setIsSuitable(isSuitableForPosition);
 
             
+=======
+            // evaluating candidate
+            const isSuitableForPosition = evaluateSuitability(extractedText);
+
+            setIsSuitable(isSuitableForPosition);
+>>>>>>> a990c94ecf57914a91c3b2ab767190761bc8447b
           } catch (error) {
             // Handle errors
             console.error("Error:", error);
           }
         };
       };
+<<<<<<< HEAD
       reader.readAsDataURL(file);
+=======
+      reader.readAsDataURL(file); //read data from the file
+>>>>>>> a990c94ecf57914a91c3b2ab767190761bc8447b
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
+<<<<<<< HEAD
   const evaluateSuitability = (extractedText) => {
     // Define a list of keywords that indicate suitability
     const suitabilityKeywords = ["experienced", "skills", "qualification", "relevant experience"];
@@ -100,23 +116,55 @@ const FileUpload = () => {
     // Convert the extracted text to lowercase for case-insensitive matching
     const lowercaseText = extractedText.toLowerCase();
   
+=======
+  // format size
+  const formatFileSize = (size) => {
+    if (size < 1024) {
+      return size + " B";
+    } else if (size < 1024 * 1024) {
+      return (size / 1024).toFixed(2) + " KB";
+    } else {
+      return (size / (1024 * 1024)).toFixed(2) + " MB";
+    }
+  };
+
+  const evaluateSuitability = (extractedText) => {
+    // Define a list of keywords that indicate suitability
+    const suitabilityKeywords = [
+      "experienced",
+      "skills",
+      "qualification",
+      "relevant experience",
+    ];
+
+    // Convert the extracted text to lowercase for case-insensitive matching
+    const lowercaseText = extractedText.toLowerCase();
+
+>>>>>>> a990c94ecf57914a91c3b2ab767190761bc8447b
     // Check if any of the suitability keywords are present in the text
     for (const keyword of suitabilityKeywords) {
       if (lowercaseText.includes(keyword)) {
         return true; // If any keyword is found, consider the candidate suitable
       }
     }
+<<<<<<< HEAD
   
     // If none of the keywords are found, consider the candidate not suitable
     return false;
   };
   
 
+=======
+
+    // If none of the keywords are found, consider the candidate not suitable
+    return false;
+  };
+>>>>>>> a990c94ecf57914a91c3b2ab767190761bc8447b
   return (
     <>
       <div className="uploadSection">
         <div>
-          <p className="title3">Upload your CV</p>
+          <p className="title3">Upload candidate CV</p>
         </div>
         <div className="tipContainer">
           <Dropzone onDrop={onDrop}>
@@ -126,7 +174,11 @@ const FileUpload = () => {
                 {/* DROP FILE SECTION */}
                 <div className="tipContainer">
                   <div>
-                    <img className="uploadIcon" src="noun-upload.svg" alt="Icon" />
+                    <img
+                      className="uploadIcon"
+                      src="noun-upload.svg"
+                      alt="Icon"
+                    />
                   </div>
                   <p className="tipText">
                     Drag 'n' drop some files here, or click to select files
@@ -140,15 +192,24 @@ const FileUpload = () => {
         {files && (
           <div>
             <h3 className="title4">File Details:</h3>
-            <p className="title5"> {files.name}</p> <p className="lightText">Size: {files.size}</p>
+            <p className="title5"> {files.name}</p>{" "}
+            <p className="lightText">Size: {formatFileSize(files.size)}</p>
           </div>
         )}
-
-        {extractedText && (
+        <div className="uploadSection">
+          {extractedText && (
+            <div>
+              <h3>Extracted Text:</h3>
+              <p>{extractedText}</p>
+            </div>
+          )}
+        </div>
+        {/* {isSuitable && (
           <div>
-            <h3>Extracted Text:</h3>
-            <p>{extractedText}</p>
+            <h3>Suitability for Position:</h3>
+            <p>The candidate is suitable for the position.</p>
           </div>
+<<<<<<< HEAD
         )}
 
 {isSuitable && (
@@ -157,6 +218,9 @@ const FileUpload = () => {
             <p>The candidate is suitable for the position.</p>
           </div>
         )}  
+=======
+        )} */}
+>>>>>>> a990c94ecf57914a91c3b2ab767190761bc8447b
       </div>
       <Dashboard isSuitable={isSuitable} /> {/* Pass the isSuitable prop to the Dashboard component */}
     </>

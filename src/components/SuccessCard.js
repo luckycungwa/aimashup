@@ -1,15 +1,16 @@
 import React from "react";
-// import "./pass.css";
+import "./pass.css";
 
-const SuccessCard = () => {
+const SuccessCard = ({isSuitable}) => {
   return (
     <div>
-      <div class="card">
+      <div class="card2">
         <div class="header">
           <span class="title">_</span>
           <span class="price">Suitable</span>
         </div>
-        <p class="desc">Candidate meets the following criteria</p>
+        <p class="desc"> Candidate: {isSuitable ? "Not Suitable" : "Suitable"}
+        </p>
         <ul class="lists">
           <li class="list">
             <svg
@@ -23,7 +24,7 @@ const SuccessCard = () => {
                 clip-rule="evenodd"
               ></path>
             </svg>
-            <span>Aenean quis</span>
+            <span>C#</span>
           </li>
           <li class="list">
             <svg
@@ -37,7 +38,7 @@ const SuccessCard = () => {
                 clip-rule="evenodd"
               ></path>
             </svg>
-            <span>Morbi semper</span>
+            <span>ReactJS</span>
           </li>
           <li class="list">
             <svg
@@ -51,11 +52,11 @@ const SuccessCard = () => {
                 clip-rule="evenodd"
               ></path>
             </svg>
-            <span>Tristique enim nec</span>
+            <span>JavaScript</span>
           </li>
         </ul>
         <button type="button" class="action">
-          Get Started
+          View More
         </button>
       </div>
     </div>
