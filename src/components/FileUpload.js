@@ -4,10 +4,12 @@ import Dropzone from "react-dropzone";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { db, app, storage } from "../services/firebaseService";
+import Dashboard from "./Dashboard"; // Import the Dashboard component
 
 const FileUpload = () => {
   const [files, setFiles] = useState(null);
   const [extractedText, setExtractedText] = useState("");
+  const [isSuitable, setIsSuitable] = useState(false);
 
 
   const onDrop = async (acceptedFiles) => {
@@ -74,6 +76,11 @@ const FileUpload = () => {
                 )
                 .join("\n")
             );
+            const isSuitableForPosition = evaluateSuitability(extractedText);
+
+            setIsSuitable(isSuitableForPosition);
+
+            
           } catch (error) {
             // Handle errors
             console.error("Error:", error);
@@ -85,6 +92,25 @@ const FileUpload = () => {
       console.error("Error:", error);
     }
   };
+
+  const evaluateSuitability = (extractedText) => {
+    // Define a list of keywords that indicate suitability
+    const suitabilityKeywords = ["experienced", "skills", "qualification", "relevant experience"];
+  
+    // Convert the extracted text to lowercase for case-insensitive matching
+    const lowercaseText = extractedText.toLowerCase();
+  
+    // Check if any of the suitability keywords are present in the text
+    for (const keyword of suitabilityKeywords) {
+      if (lowercaseText.includes(keyword)) {
+        return true; // If any keyword is found, consider the candidate suitable
+      }
+    }
+  
+    // If none of the keywords are found, consider the candidate not suitable
+    return false;
+  };
+  
 
   return (
     <>
@@ -124,7 +150,15 @@ const FileUpload = () => {
             <p>{extractedText}</p>
           </div>
         )}
+
+{isSuitable && (
+          <div>
+            <h3>Suitability for Position:</h3>
+            <p>The candidate is suitable for the position.</p>
+          </div>
+        )}  
       </div>
+      <Dashboard isSuitable={isSuitable} /> {/* Pass the isSuitable prop to the Dashboard component */}
     </>
   );
 };
