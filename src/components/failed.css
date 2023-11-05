@@ -11,7 +11,7 @@
     border-radius: 0.25rem;
     background-color: #111827;
     padding: 1.5rem;
-    border: 2 #ff1b1b solid;
+    border: 2 #1bff3d solid;
     border-width: thick;
   }
   
@@ -60,7 +60,7 @@
     width: 1.5rem;
     flex-shrink: 0;
     margin-right: 0.5rem;
-    color: #ff1b1b;
+    color: #1bff50;
   }
   
   .action {
@@ -68,7 +68,7 @@
     outline: none;
     display: inline-block;
     border-radius: 0.25rem;
-    background-color: #ff1b1b;
+    background-color: #e3e3e3;
     padding-left: 1.25rem;
     padding-right: 1.25rem;
     padding-top: 0.75rem;

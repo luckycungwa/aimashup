@@ -1,4 +1,4 @@
-.card {
+.card2 {
     margin-left: -1rem;
     margin-right: -1rem;
     display: flex;
@@ -55,7 +55,7 @@
     margin-left: 0.5rem
   }
   
-  .lists .list svg {
+  .lists2 .list svg {
     height: 1.5rem;
     width: 1.5rem;
     flex-shrink: 0;
@@ -63,7 +63,7 @@
     color: #5fff1b;
   }
   
-  .action {
+  .action2 {
     border: none;
     outline: none;
     display: inline-block;
@@ -76,5 +76,5 @@
     text-align: center;
     font-weight: 600;
     letter-spacing: 0.05em;
-    color: #111827;
+    color: #e3e3e3;
   }

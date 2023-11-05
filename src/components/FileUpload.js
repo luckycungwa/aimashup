@@ -4,17 +4,16 @@ import Dropzone from "react-dropzone";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { db, app, storage } from "../services/firebaseService";
+import Dashboard from "../pages/Dashboard";
 
 const FileUpload = () => {
   const [files, setFiles] = useState(null);
   const [extractedText, setExtractedText] = useState("");
-
+  const [isSuitable, setIsSuitable] = useState(false);
 
   const onDrop = async (acceptedFiles) => {
     const file = acceptedFiles[0];
     setFiles(file);
-
-   
 
     // Create a reference to a location in Firebase Storage
     const storageRef = ref(storage, "uploads/" + file.name);
@@ -40,7 +39,8 @@ const FileUpload = () => {
       formData.append("image", file);
 
       // Replace with your Azure Computer Vision API endpoint and API key
-      const endpoint = "https://aimesh.cognitiveservices.azure.com/vision/v3.0/ocr"; // Include /vision/v3.0/ocr for OCR
+      const endpoint =
+        "https://aimesh.cognitiveservices.azure.com/vision/v3.0/ocr"; // Include /vision/v3.0/ocr for OCR
       const apiKey = "34c005ae79904a52954d09445643780b"; // Your API key
 
       // Convert the PDF to an image format
@@ -54,7 +54,7 @@ const FileUpload = () => {
           canvas.width = image.width;
           canvas.height = image.height;
           context.drawImage(image, 0, 0);
-          const imageData = canvas.toDataURL("image/jpeg"); // convert to image inrder to be readable 
+          const imageData = canvas.toDataURL("image/jpeg"); // convert to image inrder to be readable
 
           formData.append("image", imageData);
 
@@ -69,28 +69,63 @@ const FileUpload = () => {
             // Extracted text from the API response
             setExtractedText(
               response.data.regions[0].lines
-                .map((line) =>
-                  line.words.map((word) => word.text).join(" ")
-                )
+                .map((line) => line.words.map((word) => word.text).join(" "))
                 .join("\n")
             );
+            // evaluating candidate
+            const isSuitableForPosition = evaluateSuitability(extractedText);
+
+            setIsSuitable(isSuitableForPosition);
           } catch (error) {
             // Handle errors
             console.error("Error:", error);
           }
         };
       };
-      reader.readAsDataURL(file);     //read data from the file
+      reader.readAsDataURL(file); //read data from the file
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
+  // format size
+  const formatFileSize = (size) => {
+    if (size < 1024) {
+      return size + " B";
+    } else if (size < 1024 * 1024) {
+      return (size / 1024).toFixed(2) + " KB";
+    } else {
+      return (size / (1024 * 1024)).toFixed(2) + " MB";
+    }
+  };
+
+  const evaluateSuitability = (extractedText) => {
+    // Define a list of keywords that indicate suitability
+    const suitabilityKeywords = [
+      "experienced",
+      "skills",
+      "qualification",
+      "relevant experience",
+    ];
+
+    // Convert the extracted text to lowercase for case-insensitive matching
+    const lowercaseText = extractedText.toLowerCase();
+
+    // Check if any of the suitability keywords are present in the text
+    for (const keyword of suitabilityKeywords) {
+      if (lowercaseText.includes(keyword)) {
+        return true; // If any keyword is found, consider the candidate suitable
+      }
+    }
+
+    // If none of the keywords are found, consider the candidate not suitable
+    return false;
+  };
   return (
     <>
       <div className="uploadSection">
         <div>
-          <p className="title3">Upload your CV</p>
+          <p className="title3">Upload candidate CV</p>
         </div>
         <div className="tipContainer">
           <Dropzone onDrop={onDrop}>
@@ -100,7 +135,11 @@ const FileUpload = () => {
                 {/* DROP FILE SECTION */}
                 <div className="tipContainer">
                   <div>
-                    <img className="uploadIcon" src="noun-upload.svg" alt="Icon" />
+                    <img
+                      className="uploadIcon"
+                      src="noun-upload.svg"
+                      alt="Icon"
+                    />
                   </div>
                   <p className="tipText">
                     Drag 'n' drop some files here, or click to select files
@@ -114,16 +153,24 @@ const FileUpload = () => {
         {files && (
           <div>
             <h3 className="title4">File Details:</h3>
-            <p className="title5"> {files.name}</p> <p className="lightText">Size: {files.size}</p>
+            <p className="title5"> {files.name}</p>{" "}
+            <p className="lightText">Size: {formatFileSize(files.size)}</p>
           </div>
         )}
-
-        {extractedText && (
+        <div className="uploadSection">
+          {extractedText && (
+            <div>
+              <h3>Extracted Text:</h3>
+              <p>{extractedText}</p>
+            </div>
+          )}
+        </div>
+        {/* {isSuitable && (
           <div>
-            <h3>Extracted Text:</h3>
-            <p>{extractedText}</p>
+            <h3>Suitability for Position:</h3>
+            <p>The candidate is suitable for the position.</p>
           </div>
-        )}
+        )} */}
       </div>
     </>
   );
